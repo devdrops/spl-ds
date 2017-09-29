@@ -1,19 +1,15 @@
 .PHONY: run
 
-MAKEPATH := $(abspath $(lastword $(MAKEFILE_LIST)))
-PWD := $(dir $(MAKEPATH))
-
 run:
-	docker run -it --rm \
-		-v $(PWD):/toolbox \
+	@docker run -it --rm \
+		-v $(CURDIR):/toolbox \
 		-w /toolbox \
-		devdrops/php-toolbox \
+		devdrops/php-toolbox:latest \
 		php $(COMMAND)
 
 version:
-	docker run -it --rm \
-                -v $(PWD):/toolbox \
-                -w /toolbox \
-                devdrops/php-toolbox \
-                php -v
-
+	@docker run -it --rm \
+		-v $(CURDIR):/toolbox \
+		-w /toolbox \
+		devdrops/php-toolbox:latest \
+		php -v
